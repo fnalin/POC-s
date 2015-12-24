@@ -1,31 +1,48 @@
 ﻿using AutoComplete.NomeOrCPF.API.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace AutoComplete.NomeOrCPF.API.Controllers
 {
     public class PessoasController : ApiController
     {
-        private IList<Pessoa> _pessoas
+        private readonly IPessoaRepo _repo;
+
+        #region Ctor
+
+        public PessoasController()
         {
-            get
-            {
-                return new List<Pessoa> {
-                    new Pessoa { Id=1,Nome="Fabiano Nalin",CPF="12263425233"},
-                    new Pessoa { Id=2,Nome="Priscila Mitui",CPF="93806365989"},
-                    new Pessoa { Id=3,Nome="Raphael Nalin",CPF="77056873642"},
-                    new Pessoa { Id=4,Nome="Rafael Pereira de Goes",CPF="58133513707"},
-                    new Pessoa { Id=5,Nome="Isabel Aparecida da Silva",CPF="48173942269"},
-                    new Pessoa { Id=6,Nome="Fernanda Franco",CPF="74897867207"},
-                    new Pessoa { Id=7,Nome="Fulano com CPF errado",CPF="1867207"},
-                };
-            }
+            _repo = new PessoaRepo();
         }
 
-        public IHttpActionResult Get(string nome = "", string cpf = "")
+        public PessoasController(IPessoaRepo repo)
         {
-            var pessoas = _pessoas;
+            _repo = repo;
+        }
+
+        #endregion
+
+        //GET http://localhost:51882/api/Pessoas
+        [Route("api/pessoas")]
+        public IEnumerable<Pessoa> GetAllPessoas()
+        {
+            return _repo.GetAll();
+        }
+
+        //GET http://localhost:51882/api/Pessoas/GetAllAsync
+        [Route("api/pessoas/getallasync")]
+        public async Task<IEnumerable<Pessoa>> GetAllPessoasAsync()
+        {
+            return await Task.FromResult(GetAllPessoas());
+        }
+
+        //GET http://localhost:51882/api/Pessoas/GetPessoas?nome=nalin&cpf=22
+        [Route("api/pessoas/getpessoas")]
+        public IHttpActionResult GetPessoas(string nome = "", string cpf = "")
+        {
+            var pessoas = _repo.GetAll();
 
             if (nome.Length > 0)
                 pessoas = pessoas.Where(p => p.Nome.ToLower().Contains(nome.ToLower())).ToList();
@@ -33,11 +50,18 @@ namespace AutoComplete.NomeOrCPF.API.Controllers
             if (cpf.Length > 0)
                 pessoas = pessoas.Where(p => p.CPF.Contains(cpf)).ToList();
 
-            if (pessoas == null)
+            if (pessoas == null || pessoas.Count==0)
                 return NotFound(); // Retorna NotFoundResult
 
-            return Ok(pessoas.ToList().FormatarCPF());
-
+            return Ok(pessoas);
         }
+
+        //GET http://localhost:51882/api/Pessoas/GetPessoasAsync?nome=nalin&cpf=22
+        [Route("api/pessoas/getpessoasasync")]
+        public async Task<IHttpActionResult> GetPessoasAsync(string nome = "", string cpf = "")
+        {
+            return await Task.FromResult(GetPessoas(nome, cpf));
+        }
+
     }
 }
