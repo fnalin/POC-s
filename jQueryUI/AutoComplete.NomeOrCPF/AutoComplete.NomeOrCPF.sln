@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoComplete.NomeOrCPF.WebU
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoComplete.NomeOrCPF.API.Test", "AutoComplete.NomeOrCPF.API.Test\AutoComplete.NomeOrCPF.API.Test.csproj", "{488FCD17-D33A-4514-BCEA-11A357944E9A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{3F76439A-7159-431E-9BDC-0DC6D13E2787}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{685948DF-F621-4A98-A667-34855C869068}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E6C8D13B-A9D9-4CE3-B8CC-7E80053D8D2B} = {3F76439A-7159-431E-9BDC-0DC6D13E2787}
+		{5F905AA9-FA00-4B4A-BC8E-BB8B6A4BE4AC} = {685948DF-F621-4A98-A667-34855C869068}
+		{488FCD17-D33A-4514-BCEA-11A357944E9A} = {3F76439A-7159-431E-9BDC-0DC6D13E2787}
 	EndGlobalSection
 EndGlobal
