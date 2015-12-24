@@ -66,11 +66,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Controller\TestPessoasController.cs" />
+    <Compile Include="Model\TestPessoaExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
