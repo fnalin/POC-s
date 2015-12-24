@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ofícios | Listagem</title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        body {
+            padding: 20px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row well well-sm">
+            <div class="form-horizontal form-group">
+
+                <label class="col-md-2 control-label">Informe o Nome ou CPF:</label>
+                <div class="col-md-3">
+                    <input type="text" autofocus class="form-control" id="dadosText">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <script>
+        var url = "http://localhost:50748/api/enderecos?endereco=";
+    </script>
+</body>
+</html>
