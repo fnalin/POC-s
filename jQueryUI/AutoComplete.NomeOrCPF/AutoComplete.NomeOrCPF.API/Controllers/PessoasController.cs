@@ -44,13 +44,13 @@ namespace AutoComplete.NomeOrCPF.API.Controllers
         {
             var pessoas = _repo.GetAll();
 
-            if (nome.Length > 0)
+            if (!string.IsNullOrEmpty(nome))
                 pessoas = pessoas.Where(p => p.Nome.ToLower().Contains(nome.ToLower())).ToList();
 
-            if (cpf.Length > 0)
+            if (!string.IsNullOrEmpty(cpf))
                 pessoas = pessoas.Where(p => p.CPF.Contains(cpf)).ToList();
 
-            if (pessoas == null || pessoas.Count==0)
+            if (pessoas == null || pessoas.Count == 0)
                 return NotFound(); // Retorna NotFoundResult
 
             return Ok(pessoas);
