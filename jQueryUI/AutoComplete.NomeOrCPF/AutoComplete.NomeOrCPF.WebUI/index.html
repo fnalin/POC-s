@@ -12,83 +12,79 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+
         body {
-            padding: 20px 10px;
+            /* Margin bottom by footer height */
+            margin-bottom: 60px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 60px;
+            background-color: #f5f5f5;
         }
 
         .ui-autocomplete-loading {
             background: white url("Content/img/loading.gif") right center no-repeat;
         }
+
+        #tabelaPessoas {
+            width: 60%;
+            margin: 30px auto;
+        }
     </style>
 </head>
 <body>
-    <div class="container-fluid">
+    <section class="container">
+        <header class="page-header">
+            <h1>Demo Autocomplete</h1>
+        </header>
+
+        <p class="lead">Teste com os dados disponíveis na <a target="_blank" href="http://localhost:51882/api/Pessoas">API</a></p>
+
         <div class="row well well-sm">
             <div class="form-horizontal form-group">
 
-                <label class="col-md-2 control-label">Informe o Nome ou CPF:</label>
-                <div class="col-md-3">
+                <label class="col-md-3 control-label">Informe o Nome ou CPF:</label>
+                <div class="col-md-4">
                     <input type="text" autofocus class="form-control" id="dadosText">
                 </div>
 
             </div>
         </div>
 
+        <div id="tabelaPessoas" class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
 
-    </div>
+
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">By <a href="http://fabianonalin.net.br">Fabiano Nalin</a></p>
+        </div>
+    </footer>
 
     <script src="Scripts/jquery-2.1.4.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/jquery-ui-1.11.4.min.js"></script>
-    <script>
-        var url = "http://localhost:51882/api/Pessoas/GetPessoasAsync?";
-        var params = { nome: "", cpf: "" };
-
-        $("#dadosText").on('change keydown paste input', function () {
-            params.nome = params.cpf = "";
-            var texto = this.value;
-
-            if (isNaN(texto))
-                params.nome = texto;
-            else
-                params.cpf = texto;
-        });
-
-        $("#dadosText").autocomplete({
-            minLength: 3,
-            source: function (request, response) {
-                $.ajax({
-                    url: url + $.param(params),
-                    dataType: "json",
-                    type: 'GET',
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return {
-                                //value: item.Numero,
-                                label: item.Nome + " " + item.CPF,
-                                id: item.Id,
-                                nome: item.Nome,
-                                cpf: item.cpf
-                            };
-                        }));
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        if (XMLHttpRequest.status === 404)
-                            response(null);
-                        else
-                            alert('status:' + XMLHttpRequest.status + ', status text: ' + XMLHttpRequest.statusText);
-                    },
-                });
-            },
-
-
-            select: function (event, ui) {
-                $(this).val("");
-                event.preventDefault();
-            },
-
-
-        });
-    </script>
+    <script src="Scripts/busca-pessoas.js"></script>
 </body>
 </html>
